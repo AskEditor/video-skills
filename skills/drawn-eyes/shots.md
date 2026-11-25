@@ -10,11 +10,11 @@ The people are stills that move a little where they stand. The drawn face does t
 - Never a word on a face. One word at a time.
 - A big number is one word, in digits.
 - Colour belongs to the place: give each place its own light, and keep it every time the place comes back.
-- On a map, the route draws itself and each pin lands on its word.
+- With AskEditor only: on a map, the route draws itself and each pin lands on its word.
 
 ## The list
 
-One row a shot, from the words, before any price. Two rows from the shoemaker:
+One row a shot, from the words, before any price. Save it as `SHOTS.md`. Two rows from a film about a shoemaker:
 
 | Words | Place | Who | Near or far | Feels | Changes |
 |---|---|---|---|---|---|
@@ -30,12 +30,12 @@ Use each place more than once, at another size. Every different person in a diff
 Say who it is, how old, what they wear, what they hold, and where the body ends. *"A baker of about sixty, round face, flour on a blue
 apron, both hands round a tray. From the waist up."*
 
-- Each person alone, on one flat bright colour that nobody in the film wears, so the colour can be cut away.
+- Each person alone, on one flat bright colour that nobody in the film wears, so the colour can be cut away. Any such colour works.
 - Draw each person as big as they will be on screen. A close-up is drawn as a close-up.
-- A calm face and a closed mouth: a drawn mouth looks wrong over a grin.
+- A calm face, ordinary open eyes and a closed mouth. The drawn ones go on top, and a drawn mouth looks wrong over a grin.
 - Somebody who walks needs two pictures, one for each leg.
 - A face seen straight from the side cannot have drawn eyes.
-- Things that fall or move are drawn alone, like people.
+- A thing somebody points at, carries in or stands beside is drawn alone, like a person. Things that fall or fly: with AskEditor only.
 - Rooms are empty: no people, no words, open in the middle.
 - Any sign, letter or book is left blank.
 - Somebody known from a statue or an old painting: one picture of it that is in the public domain, of somebody long dead.

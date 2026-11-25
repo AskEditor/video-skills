@@ -17,13 +17,14 @@ Made and tested on a Mac. Linux and Windows are untested.
 
 **What it does not do:** a route that draws itself on a map, things that fall, legs that walk, sound effects. Choose shots without them.
 
-Make one folder for the film, with `people/`, `places/` and `words.txt` (the agreed words, and nothing else) in it. Run every command there.
+Make one folder for the film, with `people/`, `places/`, `SHOTS.md` and `words.txt` (the agreed words, and nothing else) in it. Run every command there.
 `make.py` below means `env/bin/python <this skill>/make/make.py`.
 
 ## 1. The pictures
 
 Write `BRIEFS.md`: one brief for each picture, with the file name to save it under, such as `people/baker.png` or `places/shop.jpg`. Follow
-`shots.md`. Upright pictures, taller than they are wide. Leave room round each person: only the bottom of the body may touch an edge.
+`shots.md`. Upright pictures, in the shape of a phone screen (9 by 16), about 1080 by 1920 or bigger. Leave room round each person: only the bottom of
+the body may touch an edge. A thing drawn alone goes in `people/` too, with `feels: none` later on.
 
 Ask the person how they draw pictures. Wait for the answer.
 
@@ -48,7 +49,9 @@ make.py tidy take.wav voice.wav
 make.py words voice.wav words.txt
 ```
 
-The second prints every word with its number. The film is built on those numbers. Listen again to any word marked "not heard clearly".
+The second prints every word with its number. The film is built on those numbers. Words are counted from 1, one for each gap in
+`words.txt`, so "second-hand" is one word and "137" is one word. Where a word is marked "not heard clearly", a number often is, play that moment and put its
+times right in `words.json`.
 
 ## 3. The faces
 
