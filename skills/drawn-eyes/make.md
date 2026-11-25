@@ -43,7 +43,8 @@ Look at every picture when it arrives. Ask for it again if the mouth is open, th
 ## 2. The voice
 
 Ask: "Will you read it yourself (a phone is fine), use a voice tool of yours (such as ElevenLabs or OpenAI), or shall I use a free voice on
-this computer?" A key is handled as above. Never anybody else's voice without their yes. One take. Then:
+this computer?" A key is handled as above. A free voice may want something installed outside the film's folder, or may not work on this computer: ask before you install, and
+try two at the most. The voice the computer already has (`say` on a Mac) works for a draft. Never anybody else's voice without their yes. One take. Then:
 
 ```
 make.py tidy take.wav voice.wav
@@ -61,7 +62,7 @@ make.py faces
 ```
 
 Look at every `faces-*.jpg`. A red cross on each eye, a blue one on the mouth. Where one is wrong, or a face was missed (an animal always is), enlarge the
-picture, look, and write the points in `faces.json` yourself: how far across and how far down the picture, from 0 to 100. A back or a hand stays `null`.
+picture, look, and write the points in `faces.json` yourself: how far across and how far down the picture, from 0 to 100. A back or a hand stays `null`, and so does a face inside a painting or on a statue.
 
 ## 4. The shot list, as a file
 

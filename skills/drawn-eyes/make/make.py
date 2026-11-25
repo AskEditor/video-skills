@@ -102,8 +102,11 @@ def cut_out(path):
         strong = flat > flat.max() * 0.7
         if strong.sum() == 1 and flat.max() - np.median(flat) > 40:
             channel = int(np.argmax(strong))
-            others = np.delete(colour, channel, axis=2).max(axis=2)
-            colour[..., channel] = np.minimum(colour[..., channel], others)
+            others = np.delete(colour, channel, axis=2).astype(np.float32)
+            most, middle = others.max(axis=2), others.mean(axis=2)
+            near = cv2.GaussianBlur((away < far * 0.65).astype(np.float32), (0, 0), max(2, high / 120))  # close to the flat colour on screen
+            limit = most + (middle * 0.97 - most) * np.clip(near * 3, 0, 1)
+            colour[..., channel] = np.minimum(colour[..., channel], limit).astype(np.uint8)
         elif strong.sum() == 2:
             other = colour[..., int(np.argmin(strong))]
             for channel in np.where(strong)[0]:
@@ -316,7 +319,7 @@ class Film:
         along = (frame - shot["first"]) / max(1, shot["last"] - shot["first"])
         return {"in": 1 + 0.06 * along, "out": 1.06 - 0.06 * along}.get(shot.get("camera", "in"), 1.0)
 
-    def placed(self, shot, index, person, frame):
+    def placed(self, shot, index, person, frame, still=False):
         """The person's picture, its face, and the sum that puts it on the screen; None before they come in."""
         now, since, fresh = self.pose(shot, person, frame)
         slide = 0.0
@@ -328,7 +331,7 @@ class Film:
             left_to_go = max(0.0, 1 - (frame - begin + 1) / 8) ** 3
             slide = left_to_go * WIDE * (-1.3 if enters.get("from", "left") == "left" else 1.3)
         path = os.path.join("people", now["picture"])
-        shut = (frame + 37 * index + 11 * shot["number"]) % 83 < 4 and now.get("feels", "steady") in ("steady", "doubt", "sad")
+        shut = not still and (frame + 37 * index + 11 * shot["number"]) % 83 < 4 and now.get("feels", "steady") in ("steady", "doubt", "sad")
         card, points = person_card(path, round(now.get("tall", 70) * HIGH / 100), bool(now.get("flip")), now.get("feels", "steady"),
                                    now.get("look", "ahead"), shut, self.face(now["picture"]))
         high, wide = card.shape[:2]
@@ -349,7 +352,7 @@ class Film:
                 return word["word"]
         return None
 
-    def draw(self, frame):
+    def draw(self, frame, still=False):
         shot = next(s for s in self.shots if s["first"] <= frame < s["last"])
         place = place_picture(os.path.join("places", shot["place"]))
         z = 1 + (self.zoom(shot, frame) - 1) * 0.6
@@ -357,7 +360,7 @@ class Film:
         canvas = cv2.warpAffine(place, np.float32([[z, 0, WIDE / 2 - z * wide / 2], [0, z, HIGH / 2 - z * high / 2]]), (WIDE, HIGH),
                                 flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE).astype(np.float32)
         for index, person in enumerate(shot.get("people", [])):
-            done = self.placed(shot, index, person, frame)
+            done = self.placed(shot, index, person, frame, still)
             if not done:
                 continue
             card, _, move, _ = done
@@ -398,7 +401,12 @@ class Film:
         found, soft = [], {}
         for shot in self.shots:
             n = shot["number"]
-            long = (shot["last"] - shot["first"]) / FPS
+            marks = {shot["first"], shot["last"]}
+            for person in shot.get("people", []):
+                for part in person.get("changes", []) + ([person["enters"]] if person.get("enters") else []):
+                    marks.add(round(self.said(part["word"], f"shot {n}") * FPS))
+            marks = sorted(m for m in marks if shot["first"] <= m <= shot["last"])
+            long = max(b - a for a, b in zip(marks, marks[1:])) / FPS
             if long > 3.5:
                 found.append(f"shot {n}: holds for {long:.1f} seconds. Cut it on a word, or give it a change.")
             for index, person in enumerate(shot.get("people", [])):
@@ -603,7 +611,7 @@ def look():
     film = Film()
     tiles = []
     for _, frame, name in film.moments():
-        tile = cv2.resize(film.draw(frame), (360, 640), interpolation=cv2.INTER_AREA)
+        tile = cv2.resize(film.draw(frame, still=True), (360, 640), interpolation=cv2.INTER_AREA)
         cv2.putText(tile, name, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 0), 7)
         cv2.putText(tile, name, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2)
         tiles.append(tile)
