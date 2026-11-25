@@ -26,11 +26,12 @@ Write `BRIEFS.md`: one brief for each picture, with the file name to save it und
 `shots.md`. Upright pictures, in the shape of a phone screen (9 by 16), about 1080 by 1920 or bigger. Leave room round each person: only the bottom of
 the body may touch an edge. A thing drawn alone goes in `people/` too, with `feels: none` later on.
 
-Ask the person how they draw pictures. Wait for the answer.
+Ask the person: "How do you want to make the pictures? With a key of your own (such as Gemini or OpenAI), in an app you already use (such as ChatGPT,
+Gemini or Midjourney), or shall I find you a free one?" Wait for the answer.
 
 | They say | Do this |
 |---|---|
-| "I have a key for a picture tool" | Read that tool's own page, today, for how to call it and what a picture costs. Say the total and wait for a yes. They put the key in an environment variable themselves. Never ask them to paste it in the chat, and never write it in a file |
+| "I have a key" | Read that tool's own page, today, for how to call it and what a picture costs. Say the total and wait for a yes. They put the key in an environment variable themselves. Never ask them to paste it in the chat, and never write it in a file |
 | "I use an app" | Give them the briefs one at a time to paste in, each with the name to save it under |
 | "I have neither" | Find two or three that can be used free today, with their limits, and let them choose |
 
@@ -41,8 +42,8 @@ Look at every picture when it arrives. Ask for it again if the mouth is open, th
 
 ## 2. The voice
 
-Ask which: they read it themselves (a phone is fine), a voice tool of theirs, with the key handled as above, or a free voice program on this
-computer. Never anybody else's voice without their yes. One take. Then:
+Ask: "Will you read it yourself (a phone is fine), use a voice tool of yours (such as ElevenLabs or OpenAI), or shall I use a free voice on
+this computer?" A key is handled as above. Never anybody else's voice without their yes. One take. Then:
 
 ```
 make.py tidy take.wav voice.wav
